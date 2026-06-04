@@ -1,5 +1,6 @@
 package fr.univ_amu.iut.bonus9;
 
+import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import javax.sql.DataSource;
 
@@ -34,6 +35,12 @@ public class BaseDeDonneesPool {
     //    config.setConnectionInitSql("PRAGMA foreign_keys = ON"); // FK sur chaque connexion du
     // pool
     // 2. source = new HikariDataSource(config);
+
+    HikariConfig config = new HikariConfig();
+    config.setJdbcUrl("jdbc:sqlite:" + chemin);
+    config.setMaximumPoolSize(5);
+    config.setConnectionInitSql("PRAGMA foreign_keys = ON");
+    source = new HikariDataSource(config);
 
     return source;
   }
